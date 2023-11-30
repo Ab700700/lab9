@@ -1,0 +1,48 @@
+
+
+create database absher;
+
+
+create table user(
+    picture varchar(50) not null ,
+    name varchar(50) not null,
+    id varchar(10) primary key
+);
+
+create table information (
+    name varchar(50) not null ,
+    userId varchar(10) not null ,
+    birthCity varchar(30) not null,
+    birthCountry varchar(20) not null ,
+    dateOfBirth varchar(20) not null ,
+    relationshipStatus varchar(9) not null check ( relationshipStatus ='single' or relationshipStatus = 'married' or relationshipStatus='divorced' ),
+    educationLevel varchar (15) not null  check ( educationLevel = 'not_educated' or educationLevel = 'elementary' or educationLevel ='middle' or educationLevel = 'high' or educationLevel = 'bachelors' or educationLevel = 'master' or educationLevel ='phd'),
+    profession varchar(30) not null ,
+    gender char(1) not null check ( gender= 'm' or gender = 'f' ),
+    fingerPrinted boolean not null ,
+    status varchar(8) not null check ( status = 'inside' or status = 'outside' ),
+    bloodType varchar(4) not null,
+    foreign key (userId) references user(id)
+);
+
+
+create table idCardInformation(
+    cardNumber varchar(6) not null ,
+    userId varchar(10) not null ,
+    createdDate datetime not null ,
+    createdPlace varchar(20) not null ,
+    foreign key (userId) references user(id)
+);
+
+
+create table hajjInformation(
+    hajjStatus varchar(11) not null check ( hajjStatus = 'allowed' or hajjStatus = 'notAllowed' ),
+    userId varchar(10) not null ,
+    lastDateHajj date,
+    foreign key (userId) references user(id)
+);
+
+insert into user values('imageurl','ali','1210987609');
+insert into information values ('ali ali alali','1210987609','Jeddah','Saudi arabia','1998/10/20','single','bachelors','developer','m',true,'inside','AB+');
+insert into idCardInformation values ('123456','1210987609','2015-10-20 10:20:30','Riyadh');
+insert into hajjInformation(hajjStatus, userId) values ('allowed','1210987609');
